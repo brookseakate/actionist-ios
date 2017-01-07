@@ -18,7 +18,46 @@ import {
   PropTypes,
   Button,
   Alert,
+  TouchableHighlight,
 } from 'react-native';
+
+const loremListData = [
+  {
+    'organizer': 'organizer 1',
+    'title': 'title one',
+    'description': 'description one is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 2',
+    'title': 'title two',
+    'description': 'description two is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 3',
+    'title': 'title three',
+    'description': 'description three is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 4',
+    'title': 'title four',
+    'description': 'description four is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 5',
+    'title': 'title five',
+    'description': 'description five is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 6',
+    'title': 'title six',
+    'description': 'description six is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+  {
+    'organizer': 'organizer 7',
+    'title': 'title seven',
+    'description': 'description seven is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+  },
+]
 
 const styles = StyleSheet.create({
   container: {
@@ -126,54 +165,36 @@ class AlertListView extends Component {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([
-        {
-          'organizer': 'organizer 1',
-          'title': 'title one',
-          'description': 'description one is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 2',
-          'title': 'title two',
-          'description': 'description two is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 3',
-          'title': 'title three',
-          'description': 'description three is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 4',
-          'title': 'title four',
-          'description': 'description four is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 5',
-          'title': 'title five',
-          'description': 'description five is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 6',
-          'title': 'title six',
-          'description': 'description six is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-        {
-          'organizer': 'organizer 7',
-          'title': 'title seven',
-          'description': 'description seven is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
-        },
-      ])
+      dataSource: ds.cloneWithRows(loremListData)
     };
   }
 
+  _onListForward = (data) => {
+    this.props.navigator.push({
+      title: 'Details',
+      component: AlertDetails,
+      passProps: {actionData: data}
+    });
+  }
+
   render() {
+    const onListItemPress = (actData) => {
+      // Alert.alert('Button has been pressed!');
+      this._onListForward(actData)
+    };
+
     return (
       <ScrollView style={{flex: 1}}>
         <ListView
           contentContainerStyle={styles.container}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <View style={styles.container}>
+            <TouchableHighlight
+              onPress={onListItemPress({rowData})}
+            >
+            <View
+              style={styles.container}
+              >
               <Text style={styles.steelBlue}>
                 {rowData['organizer']}
               </Text>
@@ -184,23 +205,35 @@ class AlertListView extends Component {
                 {rowData['description']}
               </Text>
             </View>
+          </TouchableHighlight>
           }
-          />
+        />
+      </ScrollView>
+    );
+  }
+}
 
-    {/*
-        // <ListView
-        //   contentContainerStyle={styles.container}
-        //   dataSource={this.state.dataSource}
-        //   renderRow={(rowData) =>
-        //     <Text>
-        //       {rowData['organizer']}
-        //       {rowData['title']}
-        //       {rowData['description']}
-        //     </Text>
-        //   }
-        // />
-        */}
+class AlertDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.actionData = loremListData[0]
+  }
 
+  render() {
+    return (
+      <ScrollView
+        style={{flex: 1}}
+        contentContainerStyle={styles.container}
+        >
+        <Text style={styles.steelBlue}>
+          {this.actionData['organizer']}
+        </Text>
+        <Text style={styles.title}>
+          {this.actionData['title']}
+        </Text>
+        <Text style={styles.steelBlue}>
+          {this.actionData['description']}
+        </Text>
       </ScrollView>
     );
   }
