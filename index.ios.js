@@ -14,6 +14,10 @@ import {
   View,
   ScrollView,
   ListView,
+  NavigatorIOS,
+  PropTypes,
+  Button,
+  Alert,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -25,7 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'steelblue',
     borderStyle: 'solid',
     borderColor: 'white',
-    borderWidth: 1,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderTopWidth: 4,
   },
   powderBlue: {
     padding: 5,
@@ -49,6 +55,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'steelblue',
     fontSize: 26,
   },
+  button: {
+    backgroundColor: 'white',
+    fontSize: 20,
+  },
   welcome: {
     fontSize: 40,
     fontWeight: 'bold',
@@ -60,21 +70,52 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'space-around'
   },
-  // instructions: {
-  //   textAlign: 'center',
-  //   color: '#333333',
-  //   marginBottom: 5,
-  // },
 });
 
-export default class Welcome extends Component {
+export default class ActForJusticeApp extends Component {
   render() {
+    return (
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Home',
+          component: Welcome,
+        }}
+      />
+    );
+  }
+}
+
+class Welcome extends Component {
+  // static propTypes = {
+  //   title: PropTypes.string.isRequired,
+  //   navigator: PropTypes.object.isRequired,
+  // }
+
+  _onForward = () => {
+    this.props.navigator.push({
+      title: 'Actions',
+      component: AlertListView
+    });
+  }
+
+  render () {
+    const onButtonPress = () => {
+      // Alert.alert('Button has been pressed!');
+      this._onForward()
+    };
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to {'\n'}
-          Act for Justice!
+          Act for Justice
         </Text>
+        <Button
+          onPress={onButtonPress}
+          title="Take Action!"
+          accessibilityLabel="Tap to enter app"
+        />
       </View>
     );
   }
@@ -112,14 +153,14 @@ class AlertListView extends Component {
           'description': 'description five is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
         },
         {
-          'organizer': 'organizer 5',
-          'title': 'title five',
-          'description': 'description five is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+          'organizer': 'organizer 6',
+          'title': 'title six',
+          'description': 'description six is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
         },
         {
-          'organizer': 'organizer 5',
-          'title': 'title five',
-          'description': 'description five is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
+          'organizer': 'organizer 7',
+          'title': 'title seven',
+          'description': 'description seven is rad and should probably use some kind of lorem generator to demonstrate that, but will not',
         },
       ])
     };
@@ -165,4 +206,4 @@ class AlertListView extends Component {
   }
 }
 
-AppRegistry.registerComponent('ActForJusticeApp', () => AlertListView);
+AppRegistry.registerComponent('ActForJusticeApp', () => ActForJusticeApp);
