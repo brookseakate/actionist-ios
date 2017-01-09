@@ -169,19 +169,34 @@ class AlertListView extends Component {
     };
   }
 
-  _onListForward = (data) => {
+  // _onListForward = (data) => {
+  //   this.props.navigator.push({
+  //     title: 'Details',
+  //     component: AlertDetails,
+  //     passProps: {actionData: data}
+  //   });
+  // }
+
+  onListItemPress = (actData) => {
+    // Alert.alert('Button has been pressed!');
+    // this._onListForward(actData)
     this.props.navigator.push({
       title: 'Details',
       component: AlertDetails,
-      passProps: {actionData: data}
+      passProps: {actionData: actData}
     });
-  }
+  };
 
   render() {
-    const onListItemPress = (actData) => {
-      // Alert.alert('Button has been pressed!');
-      this._onListForward(actData)
-    };
+    // const onListItemPress = (actData) => {
+    //   // Alert.alert('Button has been pressed!');
+    //   // this._onListForward(actData)
+    //   this.props.navigator.push({
+    //     title: 'Details',
+    //     component: AlertDetails,
+    //     passProps: {actionData: actData}
+    //   });
+    // };
 
     return (
       <ScrollView style={{flex: 1}}>
@@ -190,7 +205,7 @@ class AlertListView extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
             <TouchableHighlight
-              onPress={onListItemPress({rowData})}
+              onPress={() => this.onListItemPress(rowData)}
             >
             <View
               style={styles.container}
@@ -216,7 +231,8 @@ class AlertListView extends Component {
 class AlertDetails extends Component {
   constructor(props) {
     super(props);
-    this.actionData = loremListData[0]
+    // this.actionData = loremListData[0]
+    this.actionData = this.props.actionData
   }
 
   render() {
