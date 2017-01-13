@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Button,
+  Alert
 } from 'react-native';
 
 import styles from '../../styles'
@@ -10,17 +11,46 @@ import styles from '../../styles'
 import AlertListView from '../AlertListView/AlertListView'
 
 export default class WelcomeView extends Component {
-  _onForward = () => {
+  // // @TODO - remove -- this was for hard-coded list
+  // _onForward = () => {
+  //   this.props.navigator.push({
+  //     title: 'Actions',
+  //     component: AlertListView
+  //   });
+  // };
+
+  _getCallActionsFromAPI = () => {
+    fetch('http://localhost:5000/api/v1.0/call_actions')
+    .then((response) => response.json())
+    .then((responseData) => {
+      // Alert.alert(
+      //   "GET Response",
+      //   "Data: " + responseData.call_actions[0]["headline"]
+      )
+      this._loadActionList(responseData)
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .done();
+  };
+
+  _loadActionList = (response) => {
     this.props.navigator.push({
       title: 'Actions',
-      component: AlertListView
+      component: AlertListView,
+      passProps: { call_action_list: response.call_actions }
     });
-  }
+  };
 
   render () {
     const onButtonPress = () => {
       // Alert.alert('Button has been pressed!');
-      this._onForward()
+
+      // // @TODO - remove -- this was for hard-coded list
+      // this._onForward()
+
+      this._getCallActionsFromAPI()
     };
 
     return (
@@ -30,7 +60,7 @@ export default class WelcomeView extends Component {
           Act for Justice
         </Text>
         <Button
-          onPress={onButtonPress}
+          onPress={ onButtonPress }
           title="Take Action!"
           accessibilityLabel="Tap to enter app"
         />

@@ -9,20 +9,22 @@ import {
 } from 'react-native';
 
 import styles from '../../styles'
-import loremListData from '../../seedData/alertListSeedData'
 import AlertDetailsView from '../AlertDetailsView/AlertDetailsView'
+
+// // @TODO - remove -- this was for hard-coded list
+// import loremListData from '../../seedData/alertListSeedData'
 
 export default class AlertListView extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(loremListData)
+      dataSource: ds.cloneWithRows(this.props.call_action_list)
     };
-  }
+  };
 
   onListItemPress = (actData) => {
-    // Alert.alert('Button has been pressed!');
+    // Alert.alert('ListItem has been pressed!');
     this.props.navigator.push({
       title: 'Details',
       component: AlertDetailsView,
@@ -44,7 +46,7 @@ export default class AlertListView extends Component {
               style={styles.container}
               >
               <Text style={styles.steelBlue}>
-                {rowData['organizer']}
+                {rowData['headline']}
               </Text>
               <Text style={styles.title}>
                 {rowData['title']}
@@ -60,3 +62,54 @@ export default class AlertListView extends Component {
     );
   }
 }
+
+// // @TODO - remove -- this was for hard-coded list
+//
+// export default class AlertListView extends Component {
+//   constructor(props) {
+//     super(props);
+//     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+//     this.state = {
+//       dataSource: ds.cloneWithRows(loremListData)
+//     };
+//   }
+//
+//   onListItemPress = (actData) => {
+//     // Alert.alert('Button has been pressed!');
+//     this.props.navigator.push({
+//       title: 'Details',
+//       component: AlertDetailsView,
+//       passProps: {actionData: actData}
+//     });
+//   };
+//
+//   render() {
+//     return (
+//       <ScrollView style={{flex: 1}}>
+//         <ListView
+//           contentContainerStyle={styles.container}
+//           dataSource={this.state.dataSource}
+//           renderRow={(rowData) =>
+//             <TouchableHighlight
+//               onPress={() => this.onListItemPress(rowData)}
+//             >
+//             <View
+//               style={styles.container}
+//               >
+//               <Text style={styles.steelBlue}>
+//                 {rowData['organizer']}
+//               </Text>
+//               <Text style={styles.title}>
+//                 {rowData['title']}
+//               </Text>
+//               <Text style={styles.steelBlue}>
+//                 {rowData['description']}
+//               </Text>
+//             </View>
+//           </TouchableHighlight>
+//           }
+//         />
+//       </ScrollView>
+//     );
+//   }
+// }
