@@ -21,19 +21,8 @@ export default class AlertListView extends Component {
     };
   }
 
-  // @TODO - remove!
-  //
-  // _onListForward = (data) => {
-  //   this.props.navigator.push({
-  //     title: 'Details',
-  //     component: AlertDetails,
-  //     passProps: {actionData: data}
-  //   });
-  // }
-
   onListItemPress = (actData) => {
     // Alert.alert('Button has been pressed!');
-    // this._onListForward(actData) // @TODO - remove!
     this.props.navigator.push({
       title: 'Details',
       component: AlertDetailsView,
@@ -42,18 +31,6 @@ export default class AlertListView extends Component {
   };
 
   render() {
-    // @TODO - remove!
-    // 
-    // const onListItemPress = (actData) => {
-    //   // Alert.alert('Button has been pressed!');
-    //   // this._onListForward(actData)
-    //   this.props.navigator.push({
-    //     title: 'Details',
-    //     component: AlertDetailsView,
-    //     passProps: {actionData: actData}
-    //   });
-    // };
-
     return (
       <ScrollView style={{flex: 1}}>
         <ListView
