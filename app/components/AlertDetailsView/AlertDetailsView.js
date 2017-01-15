@@ -19,7 +19,7 @@ export default class AlertDetailsView extends Component {
         contentContainerStyle={styles.container}
         >
         <Text style={styles.steelBlue}>
-          {this.actionData['organizer']}
+          {this.actionData['headline']}
         </Text>
         <Text style={styles.title}>
           {this.actionData['title']}

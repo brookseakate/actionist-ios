@@ -19,14 +19,14 @@ export default class WelcomeView extends Component {
   //   });
   // };
 
-  _getCallActionsFromAPI = () => {
-    fetch('http://localhost:5000/api/v1.0/call_actions')
+  _getActionsFromAPI = () => {
+    fetch('http://localhost:5000/api/v1.0/actions')
     .then((response) => response.json())
     .then((responseData) => {
       // Alert.alert(
       //   "GET Response",
       //   "Data: " + responseData.call_actions[0]["headline"]
-      )
+      // )
       this._loadActionList(responseData)
     })
     .catch((error) => {
@@ -39,7 +39,7 @@ export default class WelcomeView extends Component {
     this.props.navigator.push({
       title: 'Actions',
       component: AlertListView,
-      passProps: { call_action_list: response.call_actions }
+      passProps: { action_list: response.actions }
     });
   };
 
@@ -50,7 +50,7 @@ export default class WelcomeView extends Component {
       // // @TODO - remove -- this was for hard-coded list
       // this._onForward()
 
-      this._getCallActionsFromAPI()
+      this._getActionsFromAPI()
     };
 
     return (

@@ -19,7 +19,7 @@ export default class AlertListView extends Component {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.call_action_list)
+      dataSource: ds.cloneWithRows(this.props.action_list)
     };
   };
 
