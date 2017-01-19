@@ -46,6 +46,9 @@ export default class AlertListView extends Component {
               style={styles.container}
               >
               <Text style={styles.steelBlue}>
+                {rowData['uri']} {/* NOTE: log */}
+              </Text>
+              <Text style={styles.steelBlue}>
                 {rowData['headline']}
               </Text>
               <Text style={styles.title}>
