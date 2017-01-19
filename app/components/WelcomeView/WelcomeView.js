@@ -1,3 +1,4 @@
+// package imports
 import React, { Component } from 'react';
 import {
   View,
@@ -7,6 +8,7 @@ import {
 } from 'react-native';
 import base64 from 'base-64';
 
+// relative imports
 import Environment from '../../config/environment';
 import styles from '../../styles';
 import AlertListView from '../AlertListView/AlertListView';

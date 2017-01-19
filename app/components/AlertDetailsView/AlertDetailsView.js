@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 
 import styles from '../../styles'
+import { phonecall, email } from 'react-native-communications';
 
 export default class AlertDetailsView extends Component {
   constructor(props) {
@@ -24,6 +26,11 @@ export default class AlertDetailsView extends Component {
         <Text style={styles.title}>
           {this.actionData['title']}
         </Text>
+        <TouchableHighlight onPress={() => phonecall(this.actionData['target_phone_number'], false)}>
+          <Text style={styles.steelBlue}>
+            {this.actionData['target_phone_number']}
+          </Text>
+        </TouchableHighlight>
         <Text style={styles.steelBlue}>
           {this.actionData['description']}
         </Text>
