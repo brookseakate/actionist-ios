@@ -54,9 +54,6 @@ export default class AlertListView extends Component {
               <Text style={styles.title}>
                 {rowData['title']}
               </Text>
-              <Text style={styles.steelBlue}>
-                {rowData['description']}
-              </Text>
             </View>
           </TouchableHighlight>
           }

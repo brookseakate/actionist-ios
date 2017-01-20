@@ -3,10 +3,12 @@ import {
   Text,
   ScrollView,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 
 import styles from '../../styles'
 import { phonecall, email } from 'react-native-communications';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 export default class AlertDetailsView extends Component {
   constructor(props) {
@@ -18,7 +20,65 @@ export default class AlertDetailsView extends Component {
     if (this.props.actionData['target_email'] !== undefined && this.props.actionData['target_email'] !== null) {
       this.email_address = this.props.actionData['target_email']
     }
+  };
+
+  _authorizeCalendars = () => {
+    RNCalendarEvents.authorizeEventStore()
+    .then(status => {
+      // handle status
+      Alert.alert(
+        "Authorization status! " + status
+      )
+    })
+    .catch(error => {
+     // handle error
+    });
   }
+
+  _findCalendars = () => {
+    this._authorizeCalendars();
+
+    RNCalendarEvents.findCalendars()
+    .then(calendars => {
+      // handle calendars
+      Alert.alert(
+        "Calendars: " + calendars
+      ) // NOTE: debug
+      return calendars
+    })
+    .catch(error => {
+      // handle error
+      Alert.alert(
+        "Nah, that's a calendar-finding error...: " + error
+      ) // NOTE: debug
+    });
+  };
+
+  _addCalendarEvent = (data) => {
+    // userCalendars = this._findCalendars();
+    console.log("In _addCalendarEvent");
+    // this._authorizeCalendars();
+    console.log("Type of RNCalEvents? " + String(typeof RNCalendarEvents));
+    RNCalendarEvents.saveEvent('TEST title 3!', {
+      location: 'location',
+      notes: 'notes',
+      startDate: '2017-01-21T00:26:00.000Z',
+      endDate: '2017-01-21T01:26:00.000Z'
+    })
+    .then(id => {
+      // handle success
+      Alert.alert(
+        "Event " + "TEST title 3!" + " successfully added to calendar." +
+        " Id: " + id // @TODO - remove/debug
+      )
+    })
+    .catch(error => {
+      // handle failure
+      Alert.alert(
+        "Nah, that's an error...: " + error
+      ) // NOTE: debug
+    });
+  };
 
   render() {
     return (
@@ -40,6 +100,11 @@ export default class AlertDetailsView extends Component {
         <TouchableHighlight onPress={() => email([this.email_address], null, null, this.actionData['email_subject'], this.actionData['email_body'])}>
           <Text style={styles.steelBlue}>
             {this.email_address}
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => this._addCalendarEvent(this.actionData)}>
+          <Text style={styles.steelBlue}>
+            Add to Calendar {"\n\n"}
           </Text>
         </TouchableHighlight>
         <Text style={styles.steelBlue}>
