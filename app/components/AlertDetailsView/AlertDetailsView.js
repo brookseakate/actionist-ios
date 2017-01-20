@@ -59,12 +59,18 @@ export default class AlertDetailsView extends Component {
     console.log("In _addCalendarEvent");
     // this._authorizeCalendars();
     console.log("Type of RNCalEvents? " + String(typeof RNCalendarEvents));
-    RNCalendarEvents.saveEvent('TEST title 3!', {
+    RNCalendarEvents.saveEvent('demo TEST title!', {
       location: 'location',
       notes: 'notes',
-      startDate: '2017-01-21T00:26:00.000Z',
-      endDate: '2017-01-21T01:26:00.000Z'
+      startDate: '2017-01-21T02:26:00.000Z',
+      endDate: '2017-01-21T03:26:00.000Z'
     })
+    // RNCalendarEvents.saveEvent(data['title'], {
+    //   location: data['location'],
+    //   notes: data['description'],
+    //   startDate: data['event_start_datetime'],
+    //   endDate: data['event_end_datetime']
+    // })
     .then(id => {
       // handle success
       Alert.alert(
