@@ -75,7 +75,7 @@ export default class WelcomeView extends Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to {'\n'}
-          Act for Justice
+          Actionist
         </Text>
         <Button
           onPress={ onButtonPress }
