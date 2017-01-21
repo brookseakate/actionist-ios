@@ -32,7 +32,7 @@ export default class AlertDetailsView extends Component {
         this._addCalendarEvent(eventData);
       } else if (status == 'denied' || status == 'restricted') {
         Alert.alert(
-          "Calendar access is restricted for this app. Please reset access in iOS Settings to allow access."
+          "Calendar access is restricted for this app. Please reset access in iOS Settings to add events to calendar."
         );
       } else if (status == 'undetermined') {
         return this._requestCalendarAuth(eventData);
@@ -52,10 +52,10 @@ export default class AlertDetailsView extends Component {
     RNCalendarEvents.authorizeEventStore()
     .then(status => {
       // handle status
-      Alert.alert(
-        "Authorization status! " + status // @TODO - remove/debug
-        // "Thank you"
-      );
+      // Alert.alert(
+      //   "Authorization status! " + status // @TODO - remove/debug
+      //   // "Thank you"
+      // );
       if (status == 'authorized') {
         // console.log("In _calAuthStatus: status == 'authorized'"); // NOTE: log
         this._addCalendarEvent(eventData);
@@ -99,7 +99,7 @@ export default class AlertDetailsView extends Component {
     .then(id => {
       // handle success
       Alert.alert(
-        "Event added to calendar: " + data['title']
+        "Event added to your calendar: " + data['title']
         // " Id: " + id // @TODO - remove/debug
       )
     })
