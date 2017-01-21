@@ -35,6 +35,8 @@ export default class WelcomeView extends Component {
 
     const local_api = 'http://localhost:5000/api/v1.0/actions';
     const remote_api = 'http://development-env.rncssstzgb.us-west-2.elasticbeanstalk.com/api/v1.0/actions';
+    // const remote_api = 'http://actionistapp.com/api/v1.0/actions';
+
 
     console.log(req_object); // NOTE: log
 
