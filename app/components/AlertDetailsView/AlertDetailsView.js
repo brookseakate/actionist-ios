@@ -59,22 +59,29 @@ export default class AlertDetailsView extends Component {
     console.log("In _addCalendarEvent");
     // this._authorizeCalendars();
     console.log("Type of RNCalEvents? " + String(typeof RNCalendarEvents));
-    RNCalendarEvents.saveEvent('demo TEST title!', {
-      location: 'location',
-      notes: 'notes',
-      startDate: '2017-01-21T02:26:00.000Z',
-      endDate: '2017-01-21T03:26:00.000Z'
-    })
-    // RNCalendarEvents.saveEvent(data['title'], {
-    //   location: data['location'],
-    //   notes: data['description'],
-    //   startDate: data['event_start_datetime'],
-    //   endDate: data['event_end_datetime']
+    // RNCalendarEvents.saveEvent('demo TEST title!', {
+    //   location: 'location',
+    //   notes: 'notes',
+    //   startDate: '2017-01-21T02:26:00.000Z',
+    //   endDate: '2017-01-21T03:26:00.000Z'
     // })
+
+    // normalize date formatting
+    let start = new Date(data['event_start_datetime']);
+    start = start.toISOString();
+    let end = new Date(data['event_end_datetime']);
+    end = end.toISOString();
+
+    RNCalendarEvents.saveEvent(data['title'], {
+      location: data['location'],
+      notes: data['description'],
+      startDate: start,
+      endDate: end
+    })
     .then(id => {
       // handle success
       Alert.alert(
-        "Event " + "TEST title 3!" + " successfully added to calendar." +
+        "Event " + data['title'] + " successfully added to calendar." +
         " Id: " + id // @TODO - remove/debug
       )
     })
@@ -110,7 +117,8 @@ export default class AlertDetailsView extends Component {
         </TouchableHighlight>
         <TouchableHighlight onPress={() => this._addCalendarEvent(this.actionData)}>
           <Text style={styles.steelBlue}>
-            Add to Calendar {"\n\n"}
+            Add to Calendar: {"\n"}
+            Event at {this.actionData['event_start_datetime']}
           </Text>
         </TouchableHighlight>
         <Text style={styles.steelBlue}>
