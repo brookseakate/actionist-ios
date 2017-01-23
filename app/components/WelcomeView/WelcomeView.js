@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Button,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native';
 import base64 from 'base-64';
 
@@ -67,10 +68,10 @@ export default class WelcomeView extends Component {
           Actionist
         </Text>
         <Button
-          onPress={ onButtonPress }
+          color='skyblue'
           title="Take Action!"
-          accessibilityLabel="Tap to enter app"
-        />
+          onPress={ onButtonPress }
+          accessibilityLabel="Tap to enter app" />
       </View>
     );
   }

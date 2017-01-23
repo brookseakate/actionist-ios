@@ -6,6 +6,7 @@ import {
   ListView,
   Alert,
   TouchableHighlight,
+  Button
 } from 'react-native';
 
 import styles from '../../styles'
@@ -66,16 +67,14 @@ export default class AlertListView extends Component {
       >
       <View style={styles.container}>
         <Text style={styles.title}>
-          {actType}
-        </Text>
-        <Text style={styles.steelBlue}>
-          {rowData['uri']} {/* NOTE: log */}
+          {rowData['title']}
         </Text>
         <Text style={styles.steelBlue}>
           {rowData['headline']}
         </Text>
-        <Text style={styles.title}>
-          {rowData['title']}
+        <Text style={styles.actionTag}>
+          {actType /* NOTE: log */}
+          {/* rowData['uri'] */} {/* NOTE: log */}
         </Text>
       </View>
     </TouchableHighlight>);
