@@ -9,7 +9,6 @@ import {
 
 import styles from '../../styles'
 import { phonecall } from 'react-native-communications';
-import DateHelpers from '../../lib/DateHelpers';
 import Helpers from '../../lib/Helpers';
 
 export default class CallActionView extends Component {
@@ -48,6 +47,7 @@ export default class CallActionView extends Component {
         </Text>
 
         { Helpers.renderUnlessNull('Elected Official Level', this.actionData['target_official_type']) }
+
         <Text style={styles.steelBlue}>
           <Text style={styles.fieldLabel}>
             Script:
