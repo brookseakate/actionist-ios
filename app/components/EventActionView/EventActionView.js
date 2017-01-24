@@ -58,8 +58,9 @@ export default class AlertDetailsView extends Component {
         this._addCalendarEvent(eventData);
       } else if (status == 'denied' || status == 'restricted' || status == 'undetermined') {
         Alert.alert(
-          "Calendar access is restricted for this app. Please reset access in iOS Settings to allow access."
-          + status // @TODO - remove/debug
+          "Calendar access is restricted for this app.",
+          "Please reset access in iOS Settings to allow access. "
+          + " Status is currently: " + status // @TODO - remove/debug
         );
       }
       // // @TODO - remove...most likely to cause infinite loop?

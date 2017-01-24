@@ -17,8 +17,37 @@ export default class AlertDetailsView extends Component {
     this.actionData = this.props.actionData;
 
     if (this.props.actionData['target_email'] !== undefined && this.props.actionData['target_email'] !== null) {
-      this.emailAddress = this.props.actionData['target_email']
+      this.emailAddress = this.props.actionData['target_email'];
+      this.displayTarget = this.emailAddress;
+      this.callbackController = 'static';
+    } else if (this.props.actionData['target_official_type'] !== undefined && this.props.actionData['target_official_type'] !== null) {
+      this.officialType = this.props.actionData['target_official_type'];
+      this.displayTarget = this.officialType;
+      this.callbackController = 'official';
+    } else {
+      this.displayTarget = 'as described below.';
+      this.callbackController = 'error';
     }
+  };
+
+  _buttonCallback = () => {
+    if (this.callbackController === "static") {
+      email([this.emailAddress], null, null, this.actionData['email_subject'], this.actionData['email_body']) // NOTE: replace this with emailing sequence
+    } else if (this.callbackController === "official") {
+      this._emailOfficialSequence();
+    } else {
+      Alert.alert(
+        'Error',
+        'Could not complete call action. Please complete action as described in Details.'
+      )
+    }
+  };
+
+  _emailOfficialSequence = () => {
+    // @TODO - implement
+    Alert.alert(
+      "Implement Email Official Sequence!" // NOTE: log
+    )
   };
 
   render() {
@@ -37,8 +66,8 @@ export default class AlertDetailsView extends Component {
 
         <Button
           color='skyblue'
-          title={'Send Email to: ' + this.emailAddress}
-          onPress={() => email([this.emailAddress], null, null, this.actionData['email_subject'], this.actionData['email_body'])}
+          title={'Email: ' + this.displayTarget}
+          onPress={() => this._buttonCallback()}
         />
 
         <Text style={styles.steelBlue}>

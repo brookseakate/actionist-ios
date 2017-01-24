@@ -16,8 +16,37 @@ export default class CallActionView extends Component {
     super(props);
     this.actionData = this.props.actionData;
     if (this.props.actionData['target_phone_number'] !== undefined && this.props.actionData['target_phone_number'] !== null) {
-      this.phoneNumber = '1' + this.props.actionData['target_phone_number']
+      this.phoneNumber = '1' + this.props.actionData['target_phone_number'];
+      this.displayTarget = Helpers.phoneDisplay(this.phoneNumber);
+      this.callbackController = 'static';
+    } else if (this.props.actionData['target_official_type'] !== undefined && this.props.actionData['target_official_type'] !== null) {
+      this.officialType = this.props.actionData['target_official_type'];
+      this.displayTarget = this.officialType;
+      this.callbackController = 'official';
+    } else {
+      this.displayTarget = 'as described below.';
+      this.callbackController = 'error';
     }
+  };
+
+  _buttonCallback = () => {
+    if (this.callbackController === "static") {
+      phonecall(this.phoneNumber, false) // NOTE: replace this with calling sequence
+    } else if (this.callbackController === "official") {
+      this._callOfficialSequence();
+    } else {
+      Alert.alert(
+        'Error',
+        'Could not complete call action. Please complete action as described in Details.'
+      )
+    }
+  };
+
+  _callOfficialSequence = () => {
+    // @TODO - implement
+    Alert.alert(
+      "Implement Call Official Sequence!" // NOTE: log
+    )
   };
 
   render() {
@@ -36,8 +65,8 @@ export default class CallActionView extends Component {
 
         <Button
           color='skyblue'
-          title={'Call: ' + Helpers.phoneDisplay(this.phoneNumber)}
-          onPress={() => phonecall(this.phoneNumber, false)}
+          title={'Call: ' + this.displayTarget}
+          onPress={() => this._buttonCallback()}
         />
 
         <Text style={styles.steelBlue}>
@@ -55,7 +84,7 @@ export default class CallActionView extends Component {
           </Text>
            { Helpers.normalizeNull('script', this.actionData['script'], '\n') }
         </Text>
-        
+
         <Text style={styles.steelBlue}>
           <Text style={styles.fieldLabel}>
             Details:
