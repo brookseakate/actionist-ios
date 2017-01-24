@@ -149,7 +149,7 @@ export default class AlertDetailsView extends Component {
             <Text style={styles.fieldLabel}>
               Details:
             </Text>
-            { (this.actionData['description'] !== null ) ? '\n' + this.actionData['description'] : '\nNo description provided.' }
+          { Helpers.normalizeNull('description', this.actionData['description'], '\n') }
           </Text>
         </ScrollView>
     );
