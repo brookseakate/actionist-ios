@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'steelblue',
     fontSize: 16,
     textAlign: 'right',
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
   },
   actionDetailTag: {
     padding: 5,

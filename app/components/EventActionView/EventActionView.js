@@ -113,44 +113,49 @@ export default class AlertDetailsView extends Component {
         <ScrollView
           contentContainerStyle={styles.detailsContainer}
           >
-          <Text style={styles.actionTag}>
-            EVENT
-          </Text>
+
           <Text style={styles.steelBlue}>
             {this.actionData['headline']}
           </Text>
+
           <Text style={styles.title}>
             {this.actionData['title']}
           </Text>
+
           <Button
             color='skyblue'
-            title={'Add Event to Calendar on ' + DateHelpers.dateDisplay(this.actionData['event_start_datetime'])}
+            title={'Add Event to Calendar: ' + DateHelpers.dateDisplay(this.actionData['event_start_datetime'])}
             onPress={() => this._addEventOrReqAuth(this.actionData)}
-            />
+          />
+
           <Text style={styles.steelBlue}>
             <Text style={styles.fieldLabel}>
               Date:
             </Text>
              {' ' + DateHelpers.dateDisplay(this.actionData['event_start_datetime'])}
           </Text>
+
           <Text style={styles.steelBlue}>
             <Text style={styles.fieldLabel}>
               Time:
             </Text>
              {' ' + DateHelpers.timeDisplay(this.actionData['event_start_datetime']) + ' - ' + DateHelpers.timeDisplay(this.actionData['event_end_datetime'])}
           </Text>
+
           <Text style={styles.steelBlue}>
             <Text style={styles.fieldLabel}>
               Location:
             </Text>
              {' ' + this.actionData['location'] + '\n'}
           </Text>
+
           <Text style={styles.steelBlue}>
             <Text style={styles.fieldLabel}>
               Details:
             </Text>
           { Helpers.normalizeNull('description', this.actionData['description'], '\n') }
           </Text>
+
         </ScrollView>
     );
   }

@@ -25,20 +25,21 @@ export default class CallActionView extends Component {
       <ScrollView
         contentContainerStyle={styles.detailsContainer}
         >
-        <Text style={styles.actionTag}>
-          CALL
-        </Text>
+
         <Text style={styles.steelBlue}>
           {this.actionData['headline']}
         </Text>
+
         <Text style={styles.title}>
           {this.actionData['title']}
         </Text>
+
         <Button
           color='skyblue'
           title={'Call: ' + Helpers.phoneDisplay(this.phoneNumber)}
           onPress={() => phonecall(this.phoneNumber, false)}
         />
+
         <Text style={styles.steelBlue}>
           <Text style={styles.fieldLabel}>
             Name:
@@ -54,6 +55,7 @@ export default class CallActionView extends Component {
           </Text>
            { Helpers.normalizeNull('script', this.actionData['script'], '\n') }
         </Text>
+        
         <Text style={styles.steelBlue}>
           <Text style={styles.fieldLabel}>
             Details:

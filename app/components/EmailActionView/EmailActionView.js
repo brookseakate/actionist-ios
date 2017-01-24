@@ -26,9 +26,6 @@ export default class AlertDetailsView extends Component {
       <ScrollView
         contentContainerStyle={styles.detailsContainer}
         >
-        <Text style={styles.actionTag}>
-          EMAIL
-        </Text>
 
         <Text style={styles.steelBlue}>
           {this.actionData['headline']}
@@ -40,7 +37,7 @@ export default class AlertDetailsView extends Component {
 
         <Button
           color='skyblue'
-          title={'Send email to: ' + this.emailAddress}
+          title={'Send Email to: ' + this.emailAddress}
           onPress={() => email([this.emailAddress], null, null, this.actionData['email_subject'], this.actionData['email_body'])}
         />
 
