@@ -31,7 +31,7 @@ export default class WelcomeView extends Component {
 
     console.log(req_object); // NOTE: log
 
-    fetch(remote_api, req_object)
+    fetch(local_api, req_object)
     .then((response) => response.json())
     .then((responseData) => {
       // Alert.alert(

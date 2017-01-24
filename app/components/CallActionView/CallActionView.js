@@ -3,6 +3,7 @@ import {
   Text,
   ScrollView,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 
 import styles from '../../styles'
@@ -20,8 +21,7 @@ export default class CallActionView extends Component {
   render() {
     return (
       <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.detailsContainer}
         >
         <Text style={styles.steelBlue}>
           {this.actionData['headline']}

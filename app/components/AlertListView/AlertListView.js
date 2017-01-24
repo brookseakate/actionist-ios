@@ -27,13 +27,13 @@ export default class AlertListView extends Component {
   typeSelector = (actData) => {
     var actType;
     if (actData.type === "call_action") {
-      actType = "Call";
+      actType = "CALL";
     } else if (actData.type === "email_action") {
-      actType = "Email";
+      actType = "EMAIL";
     } else if (actData.type === "event_action") {
-      actType = "Event";
+      actType = "EVENT";
     } else {
-      actType = "Action";
+      actType = "ACTION";
     }
     return actType;
   };

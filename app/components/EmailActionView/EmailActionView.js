@@ -21,8 +21,7 @@ export default class AlertDetailsView extends Component {
   render() {
     return (
       <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.detailsContainer}
         >
         <Text style={styles.steelBlue}>
           {this.actionData['headline']}

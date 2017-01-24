@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {
   Text,
+  View,
   ScrollView,
   TouchableHighlight,
   Alert,
+  Button,
 } from 'react-native';
 
 import styles from '../../styles'
 import RNCalendarEvents from 'react-native-calendar-events';
+import DateHelpers from '../../lib/DateHelpers';
+import Helpers from '../../lib/Helpers';
 
 export default class AlertDetailsView extends Component {
   constructor(props) {
@@ -75,25 +79,25 @@ export default class AlertDetailsView extends Component {
     console.log("In _addCalendarEvent"); // NOTE: log
 
     // normalize date formatting
-    let start = new Date(data['event_start_datetime']);
-    start = start.toISOString();
-
-    let end = new Date(data['event_end_datetime']);
-    end = end.toISOString();
+    let start = DateHelpers.isoDateString(data['event_start_datetime'])
+    let end = DateHelpers.isoDateString(data['event_end_datetime'])
 
     console.log("saving event"); // NOTE: log
     // save event
     RNCalendarEvents.saveEvent(data['title'], {
-      location: data['location'],
-      notes: data['description'],
+      location: (data['location'] !== null ) ? data['location'] : '', /* use empty string if null */
+      notes: (data['description'] !== null ) ? data['description'] : '', /* use empty string if null */
       startDate: start,
       endDate: end
     })
     .then(id => {
       // handle success
       Alert.alert(
-        "Event added to your calendar: " + data['title']
-        // " Id: " + id // @TODO - remove/debug
+        "Event Added ",
+        data['title'] + "\non " + DateHelpers.dateTimeDisplay(data['event_start_datetime']),
+        [
+          {text: 'OK', onPress: () => Helpers.displayKudos(data['kudos_text']) },
+        ]
       )
     })
     .catch(error => {
@@ -106,26 +110,48 @@ export default class AlertDetailsView extends Component {
 
   render() {
     return (
-      <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={styles.container}
-        >
-        <Text style={styles.steelBlue}>
-          {this.actionData['headline']}
-        </Text>
-        <Text style={styles.title}>
-          {this.actionData['title']}
-        </Text>
-        <TouchableHighlight onPress={() => this._addEventOrReqAuth(this.actionData)}>
-          <Text style={styles.steelBlue}>
-            Add to Calendar: {"\n"}
-            Event at {this.actionData['event_start_datetime']}
+        <ScrollView
+          contentContainerStyle={styles.detailsContainer}
+          >
+          <Text style={styles.actionTag}>
+            EVENT
           </Text>
-        </TouchableHighlight>
-        <Text style={styles.steelBlue}>
-          {this.actionData['description']}
-        </Text>
-      </ScrollView>
+          <Text style={styles.steelBlue}>
+            {this.actionData['headline']}
+          </Text>
+          <Text style={styles.title}>
+            {this.actionData['title']}
+          </Text>
+          <Button
+            color='skyblue'
+            title={'Add Event to Calendar on ' + DateHelpers.dateDisplay(this.actionData['event_start_datetime'])}
+            onPress={() => this._addEventOrReqAuth(this.actionData)}
+            />
+          <Text style={styles.steelBlue}>
+            <Text style={styles.fieldLabel}>
+              Date:
+            </Text>
+             {' ' + DateHelpers.dateDisplay(this.actionData['event_start_datetime'])}
+          </Text>
+          <Text style={styles.steelBlue}>
+            <Text style={styles.fieldLabel}>
+              Time:
+            </Text>
+             {' ' + DateHelpers.timeDisplay(this.actionData['event_start_datetime']) + ' - ' + DateHelpers.timeDisplay(this.actionData['event_end_datetime'])}
+          </Text>
+          <Text style={styles.steelBlue}>
+            <Text style={styles.fieldLabel}>
+              Location:
+            </Text>
+             {' ' + this.actionData['location'] + '\n'}
+          </Text>
+          <Text style={styles.steelBlue}>
+            <Text style={styles.fieldLabel}>
+              Details:
+            </Text>
+            { (this.actionData['description'] !== null ) ? '\n' + this.actionData['description'] : '\nNo description provided.' }
+          </Text>
+        </ScrollView>
     );
   }
 }
