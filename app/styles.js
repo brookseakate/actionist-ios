@@ -94,6 +94,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  textInputField: {
+    padding: 5,
+    height: 40,
+    color: 'steelblue',
+    backgroundColor: 'white',
+    textAlign: 'left',
+  }
 });
 
 export default styles

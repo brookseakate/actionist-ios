@@ -9,6 +9,7 @@ import {
 import styles from './app/styles.js'
 
 import WelcomeView from './app/components/WelcomeView/WelcomeView'
+import AddressFormView from './app/components/AddressFormView/AddressFormView'
 
 export default class ActForJusticeApp extends Component {
   render() {

@@ -4,12 +4,14 @@ import {
   ScrollView,
   TouchableHighlight,
   Alert,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native';
 
 import styles from '../../styles'
 import { email } from 'react-native-communications';
 import Helpers from '../../lib/Helpers';
+import AddressFormView from '../AddressFormView/AddressFormView';
 
 export default class AlertDetailsView extends Component {
   constructor(props) {
@@ -38,23 +40,72 @@ export default class AlertDetailsView extends Component {
     } else {
       Alert.alert(
         'Error',
-        'Could not complete call action. Please complete action as described in Details.'
+        'Could not complete email action. Please complete action as described in Details.'
       )
     }
   };
 
-  _emailOfficialSequence = () => {
+  // // @TODO - remove...nah, probably not a promise
+  // _emailOfficialSequence = () => {
+  //   return new Promise((resolve, reject) => {
+  //
+  //   }
+  //   // @TODO - implement
+  //   // Alert.alert(
+  //   //   "Implement Email Official Sequence!" // NOTE: log
+  //   // );
+  //   this._navigateToForm(),
+  //   function{
+  //   });
+  //
+  // _emailOfficialSequence.then(function(value) {
+  //   Alert.alert(
+  //     'Value came back: ' + value
+  //   )
+  // })
+  // .catch(function(error) {
+  //   Alert.alert(
+  //     'Error came back: ' + error
+  //   )
+  // })
+
+
+
+  // NOTE: v1.0
+  _emailOfficialSequence = async () => {
     // @TODO - implement
-    Alert.alert(
-      "Implement Email Official Sequence!" // NOTE: log
-    )
+    // Alert.alert(
+    //   "Implement Email Official Sequence!" // NOTE: log
+    // );
+    try {
+      const value = await AsyncStorage.getItem('userAddress');
+      if (value !== null) {
+        // We have data!!
+        Alert.alert(
+          'We have a value! Value: ' + JSON.stringify(value)
+        );
+        // @TODO - then implement the fetch here
+      } else {
+        this._navigateToForm();
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
   };
+
+  _navigateToForm = () => {
+    this.props.navigator.push({
+      title: 'Enter Address',
+      component: AddressFormView,
+      // passProps: {}
+    });
+  }
+
 
   render() {
     return (
       <ScrollView
-        contentContainerStyle={styles.detailsContainer}
-        >
+        contentContainerStyle={styles.detailsContainer} >
 
         <Text style={styles.steelBlue}>
           {this.actionData['headline']}
