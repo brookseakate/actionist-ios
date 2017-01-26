@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default-Portrait" translatesAutoresizingMaskIntoConstraints="NO" id="KEQ-ba-bFo">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Fist-Portrait" translatesAutoresizingMaskIntoConstraints="NO" id="KEQ-ba-bFo">
                     <rect key="frame" x="52" y="176" width="271" height="315"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -26,6 +26,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Default-Portrait" width="768" height="1024"/>
+        <image name="Fist-Portrait" width="384" height="512"/>
     </resources>
 </document>
