@@ -26,6 +26,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Fist-Portrait" width="384" height="512"/>
+        <image name="Fist-Portrait" width="768" height="1024"/>
     </resources>
 </document>
