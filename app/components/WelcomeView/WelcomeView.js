@@ -23,25 +23,17 @@ export default class WelcomeView extends Component {
         "Content-Type": "application/json"
         },
     };
-    // console.log(Environment.username + ':' + Environment.password); // NOTE: log
 
     const local_api = 'http://localhost:5000/api/v1.0/actions';
-    // const remote_api = 'http://development-env.rncssstzgb.us-west-2.elasticbeanstalk.com/api/v1.0/actions';
     const remote_api = 'https://actionistapp.com/api/v1.0/actions';
-
-    console.log(req_object); // NOTE: log
 
     fetch(remote_api, req_object)
     .then((response) => response.json())
     .then((responseData) => {
-      // Alert.alert(
-      //   "GET Response",
-      //   "Data: " + responseData.call_actions[0]["headline"]
-      // ) // NOTE: debug
       this._loadActionList(responseData)
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error); // NOTE: log
     })
     .done();
   };
@@ -56,8 +48,6 @@ export default class WelcomeView extends Component {
 
   render () {
     const onButtonPress = () => {
-      // Alert.alert('Button has been pressed!'); // NOTE: log
-
       this._getActionsFromAPI()
     };
 

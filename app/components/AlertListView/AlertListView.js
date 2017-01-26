@@ -39,7 +39,6 @@ export default class AlertListView extends Component {
   };
 
   _onListItemPress = (actData) => {
-    // Alert.alert('ListItem has been pressed!');
     var nextComponent;
 
     if (actData.type === "call_action") {
@@ -67,14 +66,13 @@ export default class AlertListView extends Component {
       >
       <View style={styles.container}>
         <Text style={styles.title}>
-          {rowData['title']}
+          { rowData['title'] }
         </Text>
         <Text style={styles.steelBlue}>
-          {rowData['headline']}
+          { rowData['headline'] }
         </Text>
         <Text style={styles.actionTag}>
-          {actType /* NOTE: log */}
-          {/* rowData['uri'] */} {/* NOTE: log */}
+          { actType }
         </Text>
       </View>
     </TouchableHighlight>);

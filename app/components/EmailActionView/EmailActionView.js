@@ -34,7 +34,8 @@ export default class AlertDetailsView extends Component {
 
   _buttonCallback = () => {
     if (this.callbackController === "static") {
-      email([this.emailAddress], null, null, this.actionData['email_subject'], this.actionData['email_body']) // NOTE: replace this with emailing sequence
+      // @TODO: replace this with emailing sequence
+      email([this.emailAddress], null, null, this.actionData['email_subject'], this.actionData['email_body'])
     } else if (this.callbackController === "official") {
       this._emailOfficialSequence();
     } else {
@@ -45,51 +46,22 @@ export default class AlertDetailsView extends Component {
     }
   };
 
-  // // @TODO - remove...nah, probably not a promise
-  // _emailOfficialSequence = () => {
-  //   return new Promise((resolve, reject) => {
-  //
-  //   }
-  //   // @TODO - implement
-  //   // Alert.alert(
-  //   //   "Implement Email Official Sequence!" // NOTE: log
-  //   // );
-  //   this._navigateToForm(),
-  //   function{
-  //   });
-  //
-  // _emailOfficialSequence.then(function(value) {
-  //   Alert.alert(
-  //     'Value came back: ' + value
-  //   )
-  // })
-  // .catch(function(error) {
-  //   Alert.alert(
-  //     'Error came back: ' + error
-  //   )
-  // })
-
-
-
   // NOTE: v1.0
   _emailOfficialSequence = async () => {
-    // @TODO - implement
-    // Alert.alert(
-    //   "Implement Email Official Sequence!" // NOTE: log
-    // );
     try {
       const value = await AsyncStorage.getItem('userAddress');
       if (value !== null) {
-        // We have data!!
+        // @TODO - implement Google Civic API fetch here
         Alert.alert(
-          'We have a value! Value: ' + JSON.stringify(value)
+          // 'We have an address value! Value: ' + JSON.stringify(value) // NOTE: log
+          'Elected Offical Search coming soon!'
         );
-        // @TODO - then implement the fetch here
       } else {
+        // if address not already entered, go to form to get it
         this._navigateToForm();
       }
     } catch (error) {
-      // Error retrieving data
+      // Handle error retrieving data
     }
   };
 
@@ -97,7 +69,6 @@ export default class AlertDetailsView extends Component {
     this.props.navigator.push({
       title: 'Enter Address',
       component: AddressFormView,
-      // passProps: {}
     });
   }
 

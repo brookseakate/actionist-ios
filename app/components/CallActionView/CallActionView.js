@@ -31,7 +31,8 @@ export default class CallActionView extends Component {
 
   _buttonCallback = () => {
     if (this.callbackController === "static") {
-      phonecall(this.phoneNumber, false) // NOTE: replace this with calling sequence
+      // @TODO: replace this with calling sequence
+      phonecall(this.phoneNumber, false)
     } else if (this.callbackController === "official") {
       this._callOfficialSequence();
     } else {
@@ -43,9 +44,9 @@ export default class CallActionView extends Component {
   };
 
   _callOfficialSequence = () => {
-    // @TODO - implement
+    // @TODO - implement this method
     Alert.alert(
-      "Implement Call Official Sequence!" // NOTE: log
+      'Elected Offical Search coming soon!'
     )
   };
 

@@ -20,12 +20,9 @@ export default class AlertDetailsView extends Component {
   };
 
   _addEventOrReqAuth = (eventData) => {
-    // console.log("In _addEventOrReqAuth"); // NOTE: log
     RNCalendarEvents.authorizationStatus()
     .then(status => {
-      // console.log("In _addEventOrReqAuth status: " + status); // NOTE: log
       if (status == 'authorized') {
-        // console.log("Got into that if statement...: " + status); // NOTE: log
         this._addCalendarEvent(eventData);
       } else if (status == 'denied' || status == 'restricted') {
         Alert.alert(
@@ -44,29 +41,17 @@ export default class AlertDetailsView extends Component {
   }
 
   _requestCalendarAuth = (eventData) => {
-    // console.log("In _requestCalendarAuth"); // NOTE: log
-
     RNCalendarEvents.authorizeEventStore()
     .then(status => {
-      // handle status
-      // Alert.alert(
-      //   "Authorization status! " + status // @TODO - remove/debug
-      //   // "Thank you"
-      // );
       if (status == 'authorized') {
-        // console.log("In _calAuthStatus: status == 'authorized'"); // NOTE: log
         this._addCalendarEvent(eventData);
       } else if (status == 'denied' || status == 'restricted' || status == 'undetermined') {
         Alert.alert(
           "Calendar access is restricted for this app.",
           "Please reset access in iOS Settings to allow access. "
-          + " Status is currently: " + status // @TODO - remove/debug
+          // + " Status is currently: " + status // NOTE: log
         );
       }
-      // // @TODO - remove...most likely to cause infinite loop?
-      // else if (status == 'undetermined') {
-      //   this._requestCalendarAuth()
-      // }
     })
     .catch(error => {
       // handle error
@@ -77,14 +62,10 @@ export default class AlertDetailsView extends Component {
   }
 
   _addCalendarEvent = (data) => {
-    console.log("In _addCalendarEvent"); // NOTE: log
-
     // normalize date formatting
     let start = DateHelpers.isoDateString(data['event_start_datetime'])
     let end = DateHelpers.isoDateString(data['event_end_datetime'])
 
-    console.log("saving event"); // NOTE: log
-    // save event
     RNCalendarEvents.saveEvent(data['title'], {
       location: (data['location'] !== null ) ? data['location'] : '', /* use empty string if null */
       notes: (data['description'] !== null ) ? data['description'] : '', /* use empty string if null */
@@ -104,8 +85,8 @@ export default class AlertDetailsView extends Component {
     .catch(error => {
       // handle failure
       Alert.alert(
-        "Nah, that's an error in _addCalendarEvent...: " + error
-      ) // NOTE: debug
+        "An error occurred when adding the event to calendar: " + error
+      )
     });
   };
 

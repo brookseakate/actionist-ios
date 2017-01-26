@@ -24,9 +24,6 @@ const Helpers = {
     } else {
       return appender + 'No ' + fieldName + ' provided'
     }
-
-    // // NOTE: Less-legible original:
-    // return (fieldValue !== null ) ? '\n' + fieldValue : '\nNo ' + fieldName + ' provided'
   },
 
   renderUnlessNull: (fieldTitle, fieldData) => {

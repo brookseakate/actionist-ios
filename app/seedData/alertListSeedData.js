@@ -1,3 +1,4 @@
+// Deprecated; load all data from API now
 const loremListData = [
   {
     'organizer': 'organizer 1',

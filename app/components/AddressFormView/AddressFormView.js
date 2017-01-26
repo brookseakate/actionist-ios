@@ -4,9 +4,7 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   Alert,
-  TouchableOpacity,
   AsyncStorage
 } from 'react-native';
 
@@ -20,14 +18,14 @@ export default class AddressFormView extends Component {
   };
 
   _submitAddress = () => {
-    // @TODO - add awaits?
     AsyncStorage.setItem('userAddress', this.state.text, this._fetchOfficials())
   };
 
+  // @TODO - move the fetch method to action views (via helper)
   _fetchOfficials = () => {
+    // @TODO - implement this method
     Alert.alert(
       'This will send address to Google Civic API.\nAddress:',
-      // AsyncStorage.getItem('address'),
       this.state.text,
       [
         { text: 'OK', onPress: () => this.props.navigator.pop() },
