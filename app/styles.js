@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 4,
   },
   detailsContainer: {
-    flex: 1,
+    minHeight: 600,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
